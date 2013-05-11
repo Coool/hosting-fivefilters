@@ -1,0 +1,26 @@
+warning: Could not retrieve fact fqdn
+notice: /Stage[first]/Init/Exec[apt-update]/returns: executed successfully
+notice: /Stage[main]/Php_cld/Package[build-essential]/ensure: ensure changed 'purged' to 'latest'
+notice: /Stage[main]/Php_cld/Package[git]/ensure: ensure changed 'purged' to 'latest'
+notice: /Stage[main]/Apache/File[/var/www]/ensure: created
+notice: /Stage[main]/Php/Package[php-apc]/ensure: ensure changed 'purged' to 'latest'
+notice: /Stage[main]/Php/Package[php5]/ensure: ensure changed 'purged' to 'latest'
+notice: /Stage[main]/Php/Package[php-pear]/ensure: ensure changed 'purged' to 'latest'
+notice: /Stage[main]/Php/Package[php5-curl]/ensure: ensure changed 'purged' to 'latest'
+notice: /Stage[main]/Php/File[/etc/php5/mods-available/fivefilters-php.ini]/ensure: created
+notice: /Stage[main]/Php/Package[libcurl4-gnutls-dev]/ensure: ensure changed 'purged' to 'latest'
+notice: /Stage[main]/Php/Exec[enable-fivefilters-php]/returns: executed successfully
+notice: /Stage[main]/Apache/Package[apache2]/ensure: ensure changed 'purged' to 'latest'
+notice: /Stage[main]/Apache/Exec[enable-mod_rewrite]/returns: executed successfully
+notice: /Stage[main]/Php/Package[php5-tidy]/ensure: ensure changed 'purged' to 'latest'
+notice: /Stage[main]/Php/Package[php5-dev]/ensure: ensure changed 'purged' to 'latest'
+notice: /Stage[main]/Php_cld/Exec[download-cld]/returns: executed successfully
+notice: /Stage[main]/Php_cld/Exec[build-cld]/returns: executed successfully
+notice: /Stage[main]/Php_cld/Exec[install-cld-extension]/returns: executed successfully
+notice: /Stage[main]/Php_cld/File[/etc/php5/mods-available/cld.ini]/ensure: created
+notice: /Stage[main]/Php_pecl/Exec[install-http-pecl]/returns: executed successfully
+notice: /Stage[main]/Php_pecl/File[/etc/php5/mods-available/http.ini]/ensure: created
+notice: /Stage[main]/Php_pecl/Exec[enable-http]/returns: executed successfully
+notice: /Stage[main]/Php_cld/Exec[enable-cld]/returns: executed successfully
+notice: /Stage[main]/Apache/Exec[restart-apache]: Triggered 'refresh' from 2 events
+notice: Finished catalog run in 224.43 seconds
