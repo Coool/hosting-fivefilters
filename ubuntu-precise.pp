@@ -153,6 +153,9 @@ class php_cld {
 	}
 }
 
+class extras {
+}
+
 include init
 include apache
 include php
