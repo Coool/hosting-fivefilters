@@ -292,7 +292,7 @@ div.chunk {
 										<?php if ($tidy_ok): ?>
 											<li><strong>Tidy:</strong> You have <code>Tidy</code> support installed.  No problems here.</li>
 										<?php else: ?>
-											<li class="highlight"><strong>Tidy:</strong> The <code>Tidy</code> extension is not available.  <?php echo $app_name; ?> should still work with most feeds/articles, but you may experience problems with some. If you do, we suggest you specify parsing with html5lib.</li>
+											<li class="highlight"><strong>Tidy:</strong> The <code>Tidy</code> extension is not available.  <?php echo $app_name; ?> should still work with most feeds/articles, but you may experience problems with some.</li>
 										<?php endif; ?>
 										
 										<?php if ($curl_ok): ?>
