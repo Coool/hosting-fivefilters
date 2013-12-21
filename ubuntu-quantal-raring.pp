@@ -42,6 +42,7 @@ class apache {
 		require => Package["apache2"],
 		refreshonly => true
 	}
+	#TODO: Set AllowOverride All in default config to enable .htaccess
 }
 
 class php {
@@ -119,13 +120,13 @@ class php_cld {
 	
 	exec { "build-cld":
 		command => "./build.sh",
-		cwd => "/tmp/cld/vendor/libcld",
+		cwd => "/tmp/cld/vendor/libcld2",
 		require => Package["build-essential"],
 		provider => "shell"
 	}
 	
 	exec { "install-cld-extension":
-		command => "phpize && ./configure --with-libcld-dir=/tmp/cld/vendor/libcld && make && sudo make install",
+		command => "phpize && ./configure --with-libcld-dir=/tmp/cld/vendor/libcld2 && make && sudo make install",
 		cwd => "/tmp/cld",
 		provider => "shell",
 		require => Exec["build-cld"]
