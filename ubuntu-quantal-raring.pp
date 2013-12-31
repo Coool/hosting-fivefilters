@@ -1,5 +1,8 @@
 # Puppet file intended to install server componenets for FiveFilters.org web services
-# This file is intended for base images of Ubuntu 12.10 (Quantal) and Ubuntu 13.04 (Raring)
+# This file is intended for base images of:
+# Ubuntu 12.10 (Quantal)
+# Ubuntu 13.04 (Raring)
+# Ubuntu 13.10 (Saucy)
 
 Exec { path => "/bin:/usr/bin:/usr/local/bin" }
 
@@ -77,9 +80,7 @@ class php {
 	}
 	exec { "enable-fivefilters-php":
 		command => "sudo php5enmod fivefilters-php",
-	}
-		
-		
+	}	
 }
 
 class php_pecl {
