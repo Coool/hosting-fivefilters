@@ -56,6 +56,9 @@ class php {
 	package { "make": ensure=>latest }
 	package { "php-pear": ensure => latest }
 	package { "php5-dev": ensure => latest }
+	package { "php5-intl": ensure => latest }
+	package { "php5-gd": ensure => latest }
+	package { "php5-imagick": ensure => latest }
 	file { "/etc/php5/mods-available/fivefilters-php.ini":
 		ensure => present,
 		content => "engine = On
@@ -118,15 +121,24 @@ class php_cld {
 		before => Exec["build-cld"]
 	}
 	
+	exec { "checkout-cld-version":
+		# recent version does not work, so we switch to an older one
+		command => "git reset --hard fd5aa5721b01bfe547ff6674fa0daa9c3b791ca3",
+		cwd => "/tmp/cld",
+		require => Exec["download-cld"],
+		before => Exec["build-cld"]
+	}
+	
 	exec { "build-cld":
 		command => "./build.sh",
-		cwd => "/tmp/cld/vendor/libcld2",
+		#new cld:command => "sh compile_libs.sh",
+		cwd => "/tmp/cld/vendor/libcld",
 		require => Package["build-essential"],
 		provider => "shell"
 	}
 	
 	exec { "install-cld-extension":
-		command => "phpize && ./configure --with-libcld-dir=/tmp/cld/vendor/libcld2 && make && sudo make install",
+		command => "phpize && ./configure --with-libcld-dir=/tmp/cld/vendor/libcld && make && sudo make install",
 		cwd => "/tmp/cld",
 		provider => "shell",
 		require => Exec["build-cld"]
