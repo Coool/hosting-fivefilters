@@ -62,6 +62,7 @@ class php {
 	package { "php5-intl": ensure => latest }
 	package { "php5-gd": ensure => latest }
 	package { "php5-imagick": ensure => latest }
+	package { "php5-json": ensure => latest }
 	file { "/etc/php5/mods-available/fivefilters-php.ini":
 		ensure => present,
 		content => "engine = On
