@@ -86,7 +86,9 @@ class php {
 
 class php_pecl {
 	exec { "install-http-pecl":
-		command => "pecl install pecl_http",
+		#command => "pecl install pecl_http",
+		# the above is now version 2.0 which is too different from the earlier version we rely on
+		command => "pecl install http://pecl.php.net/get/pecl_http-1.7.6.tgz",
 		#creates => "/tmp/needed/directory",
 		require => Class["php"]
 	}
