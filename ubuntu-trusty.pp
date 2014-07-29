@@ -19,10 +19,16 @@ class init {
 	package { "unattended-upgrades":
 		ensure => latest
 	}
-	exec { "configure-unattended-upgrades":
-		require => Package["unattended-upgrades"],
-		command => "sudo dpkg-reconfigure unattended-upgrades",
+	file { "/etc/apt/apt.conf.d/20auto-upgrades":
+		ensure => present,
+		content => 'APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";',
+		require => Package["unattended-upgrades"]
 	}
+	#exec { "configure-unattended-upgrades":
+	#	require => Package["unattended-upgrades"],
+	#	command => "sudo dpkg-reconfigure unattended-upgrades",
+	#}
 }
 
 # make sure apt-update run before package
