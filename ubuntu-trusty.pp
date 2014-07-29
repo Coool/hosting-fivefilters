@@ -16,6 +16,13 @@ class init {
 	exec { "apt-update": 
 		command => "apt-get update"
 	}
+	package { "unattended-upgrades":
+		ensure => latest
+	}
+	exec { "configure-unattended-upgrades":
+		require => Package["unattended-upgrades"],
+		command => "sudo dpkg-reconfigure unattended-upgrades",
+	}
 }
 
 # make sure apt-update run before package
