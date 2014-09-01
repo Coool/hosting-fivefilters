@@ -120,7 +120,7 @@ class php_pecl_http {
 
 class php_pecl_apcu {
 	exec { "install-apcu-pecl":
-		command => "pecl install channel://pecl.php.net/APCu-4.0.4",
+		command => "pecl install channel://pecl.php.net/APCu-4.0.6",
 		#creates => "/tmp/needed/directory",
 		require => Class["php"]
 	}
