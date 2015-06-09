@@ -101,7 +101,7 @@ class php {
 
 class php_pecl_http {
 	exec { "install-http-pecl":
-		command => "sudo pecl install pecl_http",
+		command => "sudo pecl install channel://pecl.php.net/pecl_http-2.4.3",
 		# the above is now version 2.0 - supported in Full-Text RSS 3.5
 		#command => "pecl install http://pecl.php.net/get/pecl_http-1.7.6.tgz",
 		#creates => "/tmp/needed/directory",
@@ -208,6 +208,6 @@ class extras {
 include init
 include apache
 include php
-include php_pecl_http
 include php_pecl_apcu
 include php_cld
+include php_pecl_http
