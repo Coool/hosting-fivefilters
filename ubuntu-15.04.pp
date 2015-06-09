@@ -112,6 +112,23 @@ class php_pecl_http {
 		require => Exec["install-http-pecl"],
 		before => Exec["enable-http"]
 	}
+	
+	file { "/etc/php5/mods-available/raphf.ini":
+		ensure => present,
+		#owner => root, group => root, mode => 444,
+		content => "extension=raphf.so",
+		require => Exec["install-http-pecl"],
+		before => Exec["enable-http"]
+	}
+	
+	file { "/etc/php5/mods-available/propro.ini":
+		ensure => present,
+		#owner => root, group => root, mode => 444,
+		content => "extension=propro.so",
+		require => Exec["install-http-pecl"],
+		before => Exec["enable-http"]
+	}
+	
 	exec { "enable-http":
 		command => "sudo php5enmod http",
 		notify => Exec["restart-apache"],
