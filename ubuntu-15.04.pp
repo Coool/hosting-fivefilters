@@ -75,7 +75,7 @@ class php {
 	package { "php5-gd": ensure => latest }
 	package { "php5-imagick": ensure => latest }
 	package { "php5-json": ensure => latest }
-	package { "php-http": ensure => latest }
+	#package { "php-http": ensure => latest }
 	package { "php5-raphf": ensure => latest }
 	package { "php5-propro": ensure => latest }
 	file { "/etc/php5/mods-available/fivefilters-php.ini":
@@ -111,23 +111,9 @@ class php_pecl_http {
 	file { "/etc/php5/mods-available/http.ini":
 		ensure => present,
 		#owner => root, group => root, mode => 444,
-		content => "extension=http.so",
-		require => Exec["install-http-pecl"],
-		before => Exec["enable-http"]
-	}
-	
-	file { "/etc/php5/mods-available/raphf.ini":
-		ensure => present,
-		#owner => root, group => root, mode => 444,
-		content => "extension=raphf.so",
-		require => Exec["install-http-pecl"],
-		before => Exec["enable-http"]
-	}
-	
-	file { "/etc/php5/mods-available/propro.ini":
-		ensure => present,
-		#owner => root, group => root, mode => 444,
-		content => "extension=propro.so",
+		content => "extension=raphf.so
+extension=propro.so
+extension=http.so",
 		require => Exec["install-http-pecl"],
 		before => Exec["enable-http"]
 	}
