@@ -9,7 +9,8 @@ stage { 'last': require => Stage['main'] }
 
 class {
 	'init': stage => first;
-	'extras': stage => last;
+	'final': stage => last;
+	'php_pecl_http': stage => last;
 }
 
 class init {
@@ -121,8 +122,7 @@ extension=http.so",
 	}
 	
 	exec { "enable-http":
-		command => "sudo php5enmod http",
-		notify => Exec["restart-apache"],
+		command => "sudo php5enmod http"
 	}
 }
 
@@ -202,7 +202,10 @@ class php_cld {
 	}
 }
 
-class extras {
+class final {
+	exec { "restart-apache-final":
+		command => "sudo service apache2 restart"
+	}
 }
 
 include init
@@ -211,3 +214,4 @@ include php
 include php_pecl_apcu
 include php_cld
 include php_pecl_http
+include final
