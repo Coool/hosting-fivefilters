@@ -101,7 +101,7 @@ class php {
 
 class php_pecl_http {
 	exec { "install-http-pecl":
-		command => "pecl install pecl_http",
+		command => "sudo pecl install pecl_http",
 		# the above is now version 2.0 - supported in Full-Text RSS 3.5
 		#command => "pecl install http://pecl.php.net/get/pecl_http-1.7.6.tgz",
 		#creates => "/tmp/needed/directory",
@@ -128,7 +128,7 @@ extension=http.so",
 
 class php_pecl_apcu {
 	exec { "install-apcu-pecl":
-		command => "pecl install channel://pecl.php.net/APCu-4.0.7",
+		command => "sudo pecl install channel://pecl.php.net/APCu-4.0.7",
 		#creates => "/tmp/needed/directory",
 		require => Class["php"]
 	}
