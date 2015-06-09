@@ -111,7 +111,9 @@ class php_pecl_http {
 	file { "/etc/php5/mods-available/http.ini":
 		ensure => present,
 		#owner => root, group => root, mode => 444,
-		content => "extension=raphf.so
+		# priority important here to ensure it loads after json extension (default pri of 20)
+		content => "; priority=25
+extension=raphf.so
 extension=propro.so
 extension=http.so",
 		require => Exec["install-http-pecl"],
