@@ -52,7 +52,7 @@ class apache {
 	}
 
 	exec { "restart-apache":
-		command => "service apache2 restart",
+		command => "sudo service apache2 restart",
 		require => Package["apache2"],
 		refreshonly => true
 	}
