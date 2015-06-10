@@ -10,7 +10,6 @@ stage { 'last': require => Stage['main'] }
 class {
 	'init': stage => first;
 	'final': stage => last;
-	'php_pecl_http': stage => last;
 }
 
 class init {
@@ -101,28 +100,29 @@ class php {
 }
 
 class php_pecl_http {
-	exec { "install-http-pecl":
-		command => "sudo pecl install channel://pecl.php.net/pecl_http-2.4.3",
-		# the above is now version 2.0 - supported in Full-Text RSS 3.5
-		#command => "pecl install http://pecl.php.net/get/pecl_http-1.7.6.tgz",
-		#creates => "/tmp/needed/directory",
-		require => Class["php"]
-	}
-
+  # Important: this file needs to be in place before we install the HTTP extension
 	file { "/etc/php5/mods-available/http.ini":
 		ensure => present,
 		#owner => root, group => root, mode => 444,
-		# priority important here to ensure it loads after json extension (default pri of 20)
 		content => "; priority=25
 extension=raphf.so
 extension=propro.so
 extension=http.so",
-		require => Exec["install-http-pecl"],
-		before => Exec["enable-http"]
+		before => [Exec["install-http-pecl"], Exec["enable-http"]],
+		require => Class["php"]
 	}
-	
+
 	exec { "enable-http":
-		command => "sudo php5enmod http"
+		command => "sudo php5enmod http",
+		require => Class["php"],
+	}
+
+	exec { "install-http-pecl":
+		command => "sudo pecl install pecl_http",
+		# the above is now version 2.0 - supported in Full-Text RSS 3.5
+		#command => "pecl install http://pecl.php.net/get/pecl_http-1.7.6.tgz",
+		#creates => "/tmp/needed/directory",
+		require => Exec["enable-http"]
 	}
 }
 
@@ -203,9 +203,6 @@ class php_cld {
 }
 
 class final {
-	exec { "restart-apache-final":
-		command => "sudo service apache2 restart"
-	}
 }
 
 include init
