@@ -17,18 +17,19 @@ class {
 
 class init {
 	package { "python-software-properties":
-		ensure => latest,
-		before => Exec["php7-repo"]
+		ensure => latest
 	}
 	package { "fail2ban":
 		ensure => latest
 	}
 	exec { "php7-repo":
 		command => "sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php",
+		require => Package["python-software-properties"]
 		#notify => Exec["apt-update"]
 	}
 	exec { "apt-update": 
-		command => "sudo apt-get update"
+		command => "sudo apt-get update",
+		require => Exec["php7-repo"]
 	}
 	package { "unattended-upgrades":
 		ensure => latest
@@ -80,9 +81,6 @@ class apache {
 }
 
 class php {
-	exec { "apt-update": 
-		command => "sudo apt-get update"
-	}
 	package { "php7.0": ensure => latest }
 	#package { "php-apc": ensure => latest }
 	package { "libapache2-mod-php7.0": ensure => latest }
