@@ -25,10 +25,10 @@ class init {
 	}
 	exec { "php7-repo":
 		command => "sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php",
-		before => Exec["apt-update"]
+		#notify => Exec["apt-update"]
 	}
 	exec { "apt-update": 
-		command => "apt-get update"
+		command => "sudo apt-get update"
 	}
 	package { "unattended-upgrades":
 		ensure => latest
@@ -80,6 +80,9 @@ class apache {
 }
 
 class php {
+	exec { "apt-update": 
+		command => "sudo apt-get update"
+	}
 	package { "php7.0": ensure => latest }
 	#package { "php-apc": ensure => latest }
 	package { "libapache2-mod-php7.0": ensure => latest }
