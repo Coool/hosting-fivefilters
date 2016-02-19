@@ -23,13 +23,11 @@ class init {
 		ensure => latest
 	}
 	exec { "php7-repo":
-		command => "sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php",
+		command => "sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php && apt-get update",
 		require => Package["python-software-properties"]
-		#notify => Exec["apt-update"]
 	}
 	exec { "apt-update": 
 		command => "sudo apt-get update",
-		require => Exec["php7-repo"]
 	}
 	package { "unattended-upgrades":
 		ensure => latest
