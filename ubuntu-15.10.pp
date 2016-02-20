@@ -127,8 +127,9 @@ extension=http.so",
 	}
 
 	exec { "install-http-pecl":
-		command => "sudo pecl install pecl_http",
-		# the above is now version 2.0 - supported in Full-Text RSS 3.5
+		command => "pecl install https://pecl.php.net/get/pecl_http-2.5.5.tgz",
+		#command => "sudo pecl install pecl_http",
+		# the above is now version 3.0 - requires PHP7
 		#command => "pecl install http://pecl.php.net/get/pecl_http-1.7.6.tgz",
 		#creates => "/tmp/needed/directory",
 		require => Exec["enable-http"]
