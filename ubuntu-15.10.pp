@@ -45,6 +45,19 @@ class apache {
 		command => "sudo a2enmod rewrite",
 	}
 
+	file { "/etc/apache2/mods-available/mpm_prefork.conf":
+		ensure => present,
+		content => "<IfModule mpm_prefork_module>
+        StartServers                     5
+        MinSpareServers           5
+        MaxSpareServers          10
+        MaxRequestWorkers         60
+        MaxConnectionsPerChild   0
+</IfModule>",
+		require => Package["apache2"],
+		notify => Exec["restart-apache"]
+	}
+
 	file { "/etc/apache2/sites-available/fivefilters.conf":
 		ensure => present,
 		content => "<VirtualHost *:80>
