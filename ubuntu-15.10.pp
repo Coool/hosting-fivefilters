@@ -51,7 +51,7 @@ class apache {
         StartServers                     5
         MinSpareServers           5
         MaxSpareServers          10
-        MaxRequestWorkers         60
+        MaxRequestWorkers         55
         MaxConnectionsPerChild   0
 </IfModule>",
 		require => Package["apache2"],
