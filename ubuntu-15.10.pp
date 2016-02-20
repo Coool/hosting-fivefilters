@@ -23,7 +23,7 @@ class init {
 		ensure => latest
 	}
 	exec { "php7-repo":
-		command => "sudo LC_ALL=en_US.UTF-8 add-apt-repository ppa:ondrej/php && apt-get update",
+		command => "sudo add-apt-repository ppa:ondrej/php && sudo apt-get update",
 		require => Package["python-software-properties"]
 	}
 	exec { "apt-update": 
@@ -60,9 +60,16 @@ class apache {
 		before => Service["apache2"],
 		command => "sudo a2dismod status",
 	}
+	
+	exec { "enable-php":
+		require => Package["apache2"],
+		before => Service["apache2"],
+		command => "sudo a2enmod php7.0",
+	}
 
 	package { "apache2":
-		ensure => latest
+		ensure => latest,
+		require => Package["php7.0"]
 	}
 
 	service { "apache2":
