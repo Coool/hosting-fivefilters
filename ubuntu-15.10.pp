@@ -55,17 +55,16 @@ class apache {
         CustomLog /dev/null combined
         #CustomLog ${APACHE_LOG_DIR}/access.log combined
         
-  KeepAliveTimeout 3
-  MaxKeepAliveRequests 20
+				KeepAliveTimeout 3
+				MaxKeepAliveRequests 20
 </VirtualHost>",
 		require => Package["apache2"],
 		before => Exec["enable-fivefilters-apache2"]
 	}
 
 	exec { "enable-fivefilters-apache2":
-		require => Package["apache2"],
-		before => Service["apache2"],
-		command => "sudo a2dissite 000-default && a2ensite fivefilters",
+		require => [Package["apache2"], Service["apache2"]],
+		command => "sudo a2dissite 000-default && sudo a2ensite fivefilters"
 	}
 
 	exec { "disable-mod_status":
