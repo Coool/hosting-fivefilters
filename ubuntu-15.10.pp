@@ -59,7 +59,8 @@ class apache {
 				MaxKeepAliveRequests 20
 </VirtualHost>",
 		require => Package["apache2"],
-		before => Exec["enable-fivefilters-apache2"]
+		before => Exec["enable-fivefilters-apache2"],
+		notify => Exec["restart-apache"]
 	}
 
 	exec { "enable-fivefilters-apache2":
