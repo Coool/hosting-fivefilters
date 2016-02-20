@@ -1,9 +1,6 @@
 # Puppet file intended to install server componenets for FiveFilters.org web services
 # This file is intended for base images of:
 # Ubuntu 15.10
-# Note: this does not install PHP-CLD or the PECL HTTP extension, as we couldn't get these
-# to run with PHP7. We'll try again at a later time. If these are
-# important for you, please use one of our earlier Puppet scripts (15.04).
 
 Exec { path => "/bin:/usr/bin:/usr/local/bin" }
 
@@ -16,18 +13,11 @@ class {
 }
 
 class init {
-	package { "python-software-properties":
-		ensure => latest
+	exec { "apt-update": 
+		command => "apt-get update"
 	}
 	package { "fail2ban":
 		ensure => latest
-	}
-	exec { "php7-repo":
-		command => "sudo add-apt-repository ppa:ondrej/php && sudo apt-get update",
-		require => Package["python-software-properties"]
-	}
-	exec { "apt-update": 
-		command => "sudo apt-get update",
 	}
 	package { "unattended-upgrades":
 		ensure => latest
@@ -60,16 +50,9 @@ class apache {
 		before => Service["apache2"],
 		command => "sudo a2dismod status",
 	}
-	
-	exec { "enable-php":
-		require => Package["apache2"],
-		before => Service["apache2"],
-		command => "sudo a2enmod php7.0",
-	}
 
 	package { "apache2":
-		ensure => latest,
-		require => Package["php7.0"]
+		ensure => latest
 	}
 
 	service { "apache2":
@@ -86,25 +69,25 @@ class apache {
 }
 
 class php {
-	package { "php7.0": ensure => latest }
+	package { "php5": ensure => latest }
 	#package { "php-apc": ensure => latest }
-	package { "libapache2-mod-php7.0": ensure => latest }
-	package { "php7.0-cli": ensure => latest }
-	package { "php7.0-tidy": ensure => latest }
-	package { "php7.0-curl": ensure => latest }
+	package { "libapache2-mod-php5": ensure => latest }
+	package { "php5-cli": ensure => latest }
+	package { "php5-tidy": ensure => latest }
+	package { "php5-curl": ensure => latest }
 	package { "libcurl4-gnutls-dev": ensure => latest }
 	package { "libpcre3-dev": ensure => latest }
 	package { "make": ensure=>latest }
 	package { "php-pear": ensure => latest }
-	package { "php7.0-dev": ensure => latest }
-	package { "php7.0-intl": ensure => latest }
-	package { "php7.0-gd": ensure => latest }
-	package { "php-imagick": ensure => latest }
-	package { "php7.0-json": ensure => latest }
+	package { "php5-dev": ensure => latest }
+	package { "php5-intl": ensure => latest }
+	package { "php5-gd": ensure => latest }
+	package { "php5-imagick": ensure => latest }
+	package { "php5-json": ensure => latest }
 	#package { "php-http": ensure => latest }
-	#package { "php5-raphf": ensure => latest }
-	#package { "php5-propro": ensure => latest }
-	file { "/etc/php/mods-available/fivefilters-php.ini":
+	package { "php5-raphf": ensure => latest }
+	package { "php5-propro": ensure => latest }
+	file { "/etc/php5/mods-available/fivefilters-php.ini":
 		ensure => present,
 		content => "engine = On
 		expose_php = Off
@@ -117,17 +100,17 @@ class php {
 		default_socket_timeout = 120
 		file_uploads = Off
 		date.timezoe = 'UTC'",
-		require => Package["php7.0"],
+		require => Package["php5"],
 		before => Exec["enable-fivefilters-php"],
 	}
 	exec { "enable-fivefilters-php":
-		command => "sudo phpenmod fivefilters-php",
+		command => "sudo php5enmod fivefilters-php",
 	}	
 }
 
 class php_pecl_http {
   # Important: this file needs to be in place before we install the HTTP extension
-	file { "/etc/php/mods-available/http.ini":
+	file { "/etc/php5/mods-available/http.ini":
 		ensure => present,
 		#owner => root, group => root, mode => 444,
 		content => "; priority=25
@@ -139,7 +122,7 @@ extension=http.so",
 	}
 
 	exec { "enable-http":
-		command => "sudo phpenmod http",
+		command => "sudo php5enmod http",
 		require => Class["php"],
 	}
 
@@ -154,12 +137,12 @@ extension=http.so",
 
 class php_pecl_apcu {
 	exec { "install-apcu-pecl":
-		command => "sudo pecl install channel://pecl.php.net/APCu-5.1.3",
+		command => "sudo pecl install channel://pecl.php.net/APCu-4.0.7",
 		#creates => "/tmp/needed/directory",
 		require => Class["php"]
 	}
 
-	file { "/etc/php/mods-available/apcu.ini":
+	file { "/etc/php5/mods-available/apcu.ini":
 		ensure => present,
 		#owner => root, group => root, mode => 444,
 		content => "extension=apcu.so",
@@ -167,7 +150,7 @@ class php_pecl_apcu {
 		before => Exec["enable-apcu"]
 	}
 	exec { "enable-apcu":
-		command => "sudo phpenmod apcu",
+		command => "sudo php5enmod apcu",
 		notify => Exec["restart-apache"],
 	}
 }
@@ -214,7 +197,7 @@ class php_cld {
 		require => Exec["build-cld"]
 	}
 
-	file { "/etc/php/mods-available/cld.ini":
+	file { "/etc/php5/mods-available/cld.ini":
 		ensure => present,
 		#owner => root, group => root, mode => 444,
 		content => "extension=cld.so",
@@ -223,7 +206,7 @@ class php_cld {
 	}
 
 	exec { "enable-cld":
-		command => "sudo phpenmod cld",
+		command => "sudo php5enmod cld",
 		notify => Exec["restart-apache"],
 	}
 }
@@ -235,6 +218,6 @@ include init
 include apache
 include php
 include php_pecl_apcu
-#include php_cld
-#include php_pecl_http
+include php_cld
+include php_pecl_http
 include final
