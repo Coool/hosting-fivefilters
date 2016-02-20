@@ -44,7 +44,29 @@ class apache {
 		#command => "/usr/sbin/a2enmod rewrite",
 		command => "sudo a2enmod rewrite",
 	}
-	
+
+	file { "/etc/apache2/sites-available/fivefilters.conf":
+		ensure => present,
+		content => "<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/html
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog /dev/null combined
+        #CustomLog ${APACHE_LOG_DIR}/access.log combined
+        
+  KeepAlive Off
+</VirtualHost>",
+		require => Package["apache2"],
+		before => Exec["enable-fivefilters-apache2"],
+	}
+
+	exec { "enable-fivefilters-apache2":
+		require => Package["apache2"],
+		before => Service["apache2"],
+		command => "sudo a2dissite 000-default && a2ensite fivefilters",
+	}
+
 	exec { "disable-mod_status":
 		require => Package["apache2"],
 		before => Service["apache2"],
@@ -124,6 +146,16 @@ extension=http.so",
 	exec { "enable-http":
 		command => "sudo php5enmod http",
 		require => Class["php"],
+	}
+	
+	package { "libidn11-dev":
+		ensure => latest,
+		before => Exec["install-http-pecl"]
+	}
+	
+	package { "libevent-dev:
+		ensure => latest,
+		before => Exec["install-http-pecl"]
 	}
 
 	exec { "install-http-pecl":
