@@ -138,7 +138,7 @@ extension=http.so",
 
 class php_pecl_apcu {
 	exec { "install-apcu-pecl":
-		command => "sudo pecl install channel://pecl.php.net/APCu-4.0.7",
+		command => "sudo pecl install channel://pecl.php.net/APCu-4.0.10",
 		#creates => "/tmp/needed/directory",
 		require => Class["php"]
 	}
