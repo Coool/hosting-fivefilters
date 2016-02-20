@@ -59,7 +59,7 @@ class apache {
   MaxKeepAliveRequests 20
 </VirtualHost>",
 		require => Package["apache2"],
-		before => Exec["enable-fivefilters-apache2"],
+		before => Exec["enable-fivefilters-apache2"]
 	}
 
 	exec { "enable-fivefilters-apache2":
@@ -154,7 +154,7 @@ extension=http.so",
 		before => Exec["install-http-pecl"]
 	}
 	
-	package { "libevent-dev:
+	package { "libevent-dev":
 		ensure => latest,
 		before => Exec["install-http-pecl"]
 	}
