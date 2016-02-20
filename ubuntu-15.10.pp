@@ -68,8 +68,8 @@ class apache {
         CustomLog /dev/null combined
         #CustomLog ${APACHE_LOG_DIR}/access.log combined
         
-				KeepAliveTimeout 3
-				MaxKeepAliveRequests 20
+				KeepAliveTimeout 2
+				MaxKeepAliveRequests 10
 </VirtualHost>",
 		require => Package["apache2"],
 		before => Exec["enable-fivefilters-apache2"],
