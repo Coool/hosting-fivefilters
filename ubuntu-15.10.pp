@@ -51,7 +51,7 @@ class apache {
         StartServers                     5
         MinSpareServers           5
         MaxSpareServers          10
-        MaxRequestWorkers         55
+        MaxRequestWorkers         90
         MaxConnectionsPerChild   0
 </IfModule>",
 		require => Package["apache2"],
@@ -259,6 +259,10 @@ class php_cld {
 }
 
 class final {
+	exec { "lower-swappiness":
+		command => "echo 'vm.swappiness = 10' >> /etc/sysctl.conf && sudo sysctl -p",
+		provider => "shell"
+	}
 }
 
 include init
