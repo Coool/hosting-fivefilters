@@ -135,7 +135,7 @@ class php {
 	package { "libgumbo-dev": ensure => latest }
 	package { "libxml2": ensure => latest }
 	package { "libxml2-dev": ensure => latest }
-	
+
 	file { "/etc/php/7.0/mods-available/fivefilters-php.ini":
 		ensure => present,
 		content => "engine = On
@@ -243,12 +243,13 @@ class php_gumbo {
 		#owner => root, group => root, mode => 444,
 		content => "extension=gumbo.so",
 		require => Exec["install-gumbo-extension"],
-		before => Exec["enable-gumbo"],
+		before => Exec["enable-gumbo"]
 	}
 
 	exec { "enable-gumbo":
 		command => "sudo phpenmod gumbo",
 		notify => Exec["restart-apache"],
+		require => Exec["install-gumbo-extension"]
 	}
 }
 
