@@ -1,26 +1,53 @@
-warning: Could not retrieve fact fqdn
-notice: /Stage[first]/Init/Exec[apt-update]/returns: executed successfully
-notice: /Stage[main]/Php_cld/Package[build-essential]/ensure: ensure changed 'purged' to 'latest'
-notice: /Stage[main]/Php_cld/Package[git]/ensure: ensure changed 'purged' to 'latest'
-notice: /Stage[main]/Apache/File[/var/www]/ensure: created
-notice: /Stage[main]/Php/Package[php-apc]/ensure: ensure changed 'purged' to 'latest'
-notice: /Stage[main]/Php/Package[php5]/ensure: ensure changed 'purged' to 'latest'
-notice: /Stage[main]/Php/Package[php-pear]/ensure: ensure changed 'purged' to 'latest'
-notice: /Stage[main]/Php/Package[php5-curl]/ensure: ensure changed 'purged' to 'latest'
-notice: /Stage[main]/Php/File[/etc/php5/mods-available/fivefilters-php.ini]/ensure: created
-notice: /Stage[main]/Php/Package[libcurl4-gnutls-dev]/ensure: ensure changed 'purged' to 'latest'
-notice: /Stage[main]/Php/Exec[enable-fivefilters-php]/returns: executed successfully
-notice: /Stage[main]/Apache/Package[apache2]/ensure: ensure changed 'purged' to 'latest'
-notice: /Stage[main]/Apache/Exec[enable-mod_rewrite]/returns: executed successfully
-notice: /Stage[main]/Php/Package[php5-tidy]/ensure: ensure changed 'purged' to 'latest'
-notice: /Stage[main]/Php/Package[php5-dev]/ensure: ensure changed 'purged' to 'latest'
-notice: /Stage[main]/Php_cld/Exec[download-cld]/returns: executed successfully
-notice: /Stage[main]/Php_cld/Exec[build-cld]/returns: executed successfully
-notice: /Stage[main]/Php_cld/Exec[install-cld-extension]/returns: executed successfully
-notice: /Stage[main]/Php_cld/File[/etc/php5/mods-available/cld.ini]/ensure: created
-notice: /Stage[main]/Php_pecl/Exec[install-http-pecl]/returns: executed successfully
-notice: /Stage[main]/Php_pecl/File[/etc/php5/mods-available/http.ini]/ensure: created
-notice: /Stage[main]/Php_pecl/Exec[enable-http]/returns: executed successfully
-notice: /Stage[main]/Php_cld/Exec[enable-cld]/returns: executed successfully
-notice: /Stage[main]/Apache/Exec[restart-apache]: Triggered 'refresh' from 2 events
-notice: Finished catalog run in 224.43 seconds
+Notice: /Stage[first]/Init/Exec[apt-update]/returns: executed successfully
+Notice: /Stage[first]/Init/Package[unattended-upgrades]/ensure: ensure changed '                                         purged' to 'latest'
+Notice: /Stage[first]/Init/Package[fail2ban]/ensure: ensure changed 'purged' to                                          'latest'
+Notice: /Stage[first]/Init/File[/etc/apt/apt.conf.d/20auto-upgrades]/ensure: cre                                         ated
+Notice: /Stage[main]/Php_gumbo/Package[build-essential]/ensure: ensure changed '                                         purged' to 'latest'
+Notice: /Stage[main]/Php_gumbo/Package[git]/ensure: ensure changed 'purged' to '                                         latest'
+Notice: /Stage[main]/Php/Package[php7.0-tidy]/ensure: ensure changed 'purged' to                                          'latest'
+Notice: /Stage[main]/Php/Package[php-propro]/ensure: ensure changed 'purged' to                                          'latest'
+Notice: /Stage[main]/Php/Package[php7.0-json]/ensure: ensure changed 'purged' to                                          'latest'
+Notice: /Stage[main]/Php/Package[php7.0-cli]/ensure: ensure changed 'purged' to                                          'latest'
+Notice: /Stage[main]/Php/Package[php7.0-gd]/ensure: ensure changed 'purged' to '                                         latest'
+Notice: /Stage[main]/Php/Package[libgumbo1]/ensure: ensure changed 'purged' to '                                         latest'
+Notice: /Stage[main]/Php/Package[php7.0-curl]/ensure: ensure changed 'purged' to                                          'latest'
+Notice: /Stage[main]/Php/Package[libapache2-mod-php7.0]/ensure: ensure changed '                                         purged' to 'latest'
+Notice: /Stage[main]/Php/Package[php-pear]/ensure: ensure changed 'purged' to 'l                                         atest'
+Notice: /Stage[main]/Php/Package[php7.0-dev]/ensure: ensure changed 'purged' to                                          'latest'
+Notice: /Stage[main]/Php/Package[php-imagick]/ensure: ensure changed 'purged' to                                          'latest'
+Notice: /Stage[main]/Php/Package[libgumbo-dev]/ensure: ensure changed 'purged' t                                         o 'latest'
+Notice: /Stage[main]/Php/Package[php7.0-intl]/ensure: ensure changed 'purged' to                                          'latest'
+Notice: /Stage[main]/Php/Package[libcurl4-gnutls-dev]/ensure: ensure changed 'pu                                         rged' to 'latest'
+Notice: /Stage[main]/Php/Package[php-raphf]/ensure: ensure changed 'purged' to '                                         latest'
+Notice: /Stage[main]/Php_pecl_http/Package[libidn11-dev]/ensure: ensure changed                                          'purged' to 'latest'
+Notice: /Stage[main]/Php_pecl_http/Package[libevent-dev]/ensure: ensure changed                                          'purged' to 'latest'
+Notice: /Stage[main]/Apache/Package[apache2]/ensure: ensure changed 'purged' to                                          'latest'
+Notice: /Stage[main]/Apache/Exec[enable-prefork]/returns: executed successfully
+Notice: /Stage[main]/Apache/Exec[enable-mod_rewrite]/returns: executed successfu                                         lly
+Notice: /Stage[main]/Apache/Exec[disable-mod_status]/returns: executed successfu                                         lly
+Notice: /Stage[main]/Apache/File[/etc/apache2/sites-available/fivefilters.conf]/                                         ensure: created
+Notice: /Stage[main]/Apache/Exec[enable-fivefilters-apache2]/returns: executed s                                         uccessfully
+Notice: /Stage[main]/Apache/File[/etc/apache2/mods-available/mpm_prefork.conf]/c                                         ontent: content changed '{md5}26e539a16e51c4feddd2eedc568692e6' to '{md5}ea9e87c                                         75ad59aef9032945fc1b68c5d'
+Notice: /Stage[main]/Php/Package[libxml2-dev]/ensure: ensure changed 'purged' to                                          'latest'
+Notice: /Stage[main]/Php/Package[php7.0-zip]/ensure: ensure changed 'purged' to                                          'latest'
+Notice: /Stage[main]/Php/Package[php7.0-mbstring]/ensure: ensure changed 'purged                                         ' to 'latest'
+Notice: /Stage[main]/Php/Package[php7.0]/ensure: ensure changed 'purged' to 'lat                                         est'
+Notice: /Stage[main]/Php/File[/etc/php/7.0/mods-available/fivefilters-php.ini]/e                                         nsure: created
+Notice: /Stage[main]/Php/Exec[enable-fivefilters-php]/returns: executed successf                                         ully
+Notice: /Stage[main]/Php_pecl_apcu/Exec[install-apcu-pecl]/returns: executed suc                                         cessfully
+Notice: /Stage[main]/Php_gumbo/Exec[download-gumbo]/returns: executed successful                                         ly
+Notice: /Stage[main]/Php_gumbo/Exec[install-gumbo-extension]/returns: executed s                                         uccessfully
+Notice: /Stage[main]/Php_gumbo/File[/etc/php/7.0/mods-available/gumbo.ini]/ensur                                         e: created
+Notice: /Stage[main]/Php_gumbo/Exec[enable-gumbo]/returns: executed successfully
+Notice: /Stage[main]/Php_pecl_http/File[/etc/php/7.0/mods-available/http.ini]/en                                         sure: created
+Notice: /Stage[main]/Php_pecl_http/Exec[enable-http]/returns: executed successfu                                         lly
+Notice: /Stage[main]/Php_pecl_http/Exec[install-http-pecl]/returns: executed suc                                         cessfully
+Notice: /Stage[main]/Php_pecl_apcu/File[/etc/php/7.0/mods-available/apcu.ini]/en                                         sure: created
+Notice: /Stage[main]/Php_pecl_apcu/Exec[enable-apcu]/returns: executed successfu                                         lly
+Notice: /Stage[main]/Php_pecl_apc_bc/Exec[install-apc-bc-pecl]/returns: executed                                          successfully
+Notice: /Stage[main]/Php_pecl_apc_bc/File[/etc/php/7.0/mods-available/z_apc_bc.i                                         ni]/ensure: created
+Notice: /Stage[main]/Php_pecl_apc_bc/Exec[enable-apc-bc]/returns: executed succe                                         ssfully
+Notice: /Stage[main]/Apache/Exec[restart-apache]: Triggered 'refresh' from 5 eve                                         nts
+Notice: /Stage[last]/Final/Exec[lower-swappiness]/returns: executed successfully
+Notice: /Stage[last]/Final/Exec[enable-php]/returns: executed successfully
+Notice: Finished catalog run in 158.76 seconds
