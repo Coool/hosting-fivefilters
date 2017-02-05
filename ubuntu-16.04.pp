@@ -130,6 +130,12 @@ class php {
 	package { "php-raphf": ensure => latest }
 	package { "php-propro": ensure => latest }
 	package { "php7.0-zip": ensure => latest }
+	# for gumbo-php
+	package { "libgumbo1": ensure => latest }
+	package { "libgumbo-dev": ensure => latest }
+	package { "libxml2": ensure => latest }
+	package { "libxml2-dev": ensure => latest }
+	
 	file { "/etc/php/7.0/mods-available/fivefilters-php.ini":
 		ensure => present,
 		content => "engine = On
@@ -208,6 +214,44 @@ class php_pecl_apcu {
 	}
 }
 
+class php_gumbo {
+	# see https://github.com/layershifter/gumbo-php
+	package { "git": ensure => latest }
+	package { "build-essential": ensure => latest }
+	
+	file { "/tmp/gumbo":
+		ensure => absent,
+		before => Exec["download-gumbo"],
+		recurse => true,
+		force => true
+	}
+	
+	exec { "download-gumbo":
+		command => "git clone git://github.com/layershifter/gumbo-php.git /tmp/gumbo",
+		require => [Package["git"], Class["php"]]
+	}
+	
+	exec { "install-gumbo-extension":
+		command => "phpize && ./configure && make && sudo make install",
+		cwd => "/tmp/gumbo",
+		provider => "shell",
+		require => Exec["download-gumbo"]
+	}
+
+	file { "/etc/php/7.0/mods-available/gumbo.ini":
+		ensure => present,
+		#owner => root, group => root, mode => 444,
+		content => "extension=gumbo.so",
+		require => Exec["install-gumbo-extension"],
+		before => Exec["enable-gumbo"],
+	}
+
+	exec { "enable-gumbo":
+		command => "sudo phpenmod gumbo",
+		notify => Exec["restart-apache"],
+	}
+}
+
 class php_pecl_apc_bc {
 	exec { "install-apc-bc-pecl":
 		command => "sudo pecl install channel://pecl.php.net/apcu_bc-1.0.3",
@@ -245,4 +289,5 @@ include php
 include php_pecl_apcu
 include php_pecl_apc_bc
 include php_pecl_http
+include php_gumbo
 include final
