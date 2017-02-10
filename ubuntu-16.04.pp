@@ -188,7 +188,7 @@ extension=http.so",
 	exec { "install-http-pecl":
 		# For some reason this command doesn't return a success code, even though 
 		# it appears to succeed. So we use || /bin/true
-		command => "sudo pecl install channel://pecl.php.net/pecl_http-3.0.1.tgz || /bin/true",
+		command => "sudo pecl install channel://pecl.php.net/pecl_http-3.1.0.tgz || /bin/true",
 		#creates => "/tmp/needed/directory",
 		require => Exec["enable-http"]
 	}
@@ -196,7 +196,7 @@ extension=http.so",
 
 class php_pecl_apcu {
 	exec { "install-apcu-pecl":
-		command => "sudo pecl install channel://pecl.php.net/APCu-5.1.5",
+		command => "sudo pecl install channel://pecl.php.net/APCu-5.1.8",
 		#creates => "/tmp/needed/directory",
 		require => Class["php"]
 	}
