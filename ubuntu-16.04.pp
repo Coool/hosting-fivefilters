@@ -117,6 +117,7 @@ class php {
 	package { "php7.0-tidy": ensure => latest }
 	package { "php7.0-curl": ensure => latest }
 	package { "libcurl4-gnutls-dev": ensure => latest }
+	package { "libcurl4-openssl-dev": ensure => latest }
 	package { "libpcre3-dev": ensure => latest }
 	package { "make": ensure=>latest }
 	package { "php-pear": ensure => latest }
