@@ -69,9 +69,9 @@ class apache {
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/html
 
-        ErrorLog ${APACHE_LOG_DIR}/error.log
+        ErrorLog /var/log/apache2/error.log
         CustomLog /dev/null combined
-        #CustomLog ${APACHE_LOG_DIR}/access.log combined
+        #CustomLog /var/log/apache2/access.log combined
         
 				KeepAliveTimeout 2
 				MaxKeepAliveRequests 10
