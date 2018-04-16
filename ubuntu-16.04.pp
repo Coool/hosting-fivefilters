@@ -164,8 +164,8 @@ class php_pecl_http {
 		ensure => present,
 		#owner => root, group => root, mode => 444,
 		content => "; priority=25
-extension=raphf.so
-extension=propro.so
+;extension=raphf.so
+;extension=propro.so
 extension=http.so",
 		before => [Exec["install-http-pecl"], Exec["enable-http"]],
 		require => Class["php"]
