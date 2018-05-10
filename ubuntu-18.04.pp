@@ -1,6 +1,10 @@
 # Puppet file intended to install server componenets for FiveFilters.org web services
 # This file is intended for base images of:
 # Ubuntu 18.04
+# On a *new* Ubuntu 18.04 server instance (Hetzner Cloud/Linode/Digital Ocean, etc.):
+# > apt-get update
+# > apt-get install puppet
+# > puppet apply ubuntu-18.04.pp
 
 Exec { path => "/bin:/usr/bin:/usr/local/bin" }
 
