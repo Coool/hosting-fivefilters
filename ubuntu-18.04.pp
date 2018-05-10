@@ -220,6 +220,7 @@ class php_pecl_apcu {
 
 class php_gumbo {
 	# see https://github.com/layershifter/gumbo-php
+    # using https://github.com/fivefilters/gumbo-php for better whitespace handling
 	package { "git": ensure => latest }
 	package { "build-essential": ensure => latest }
 	
@@ -231,7 +232,7 @@ class php_gumbo {
 	}
 	
 	exec { "download-gumbo":
-		command => "git clone git://github.com/layershifter/gumbo-php.git /tmp/gumbo",
+		command => "git clone git://github.com/fivefilters/gumbo-php.git /tmp/gumbo",
 		require => [Package["git"], Class["php"]]
 	}
 	
